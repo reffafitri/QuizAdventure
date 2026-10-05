@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="wooden-board">
+    <div class="game-title">QUIZ ADVENTURE</div>
+    <div class="subtitle">Test Your Mind, Explore The World</div>
+</div>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="startScreen" class="game-container">
+
+        <div class="menu-buttons">
+            <button class="btn btn-primary" onclick="startGame()">
+                <i class="fa-solid fa-play icon"></i>
+                <span>Mulai</span>
+            </button>
+
+            <button class="btn btn-secondary" onclick="openSettings()">
+                <i class="fa-solid fa-gear icon"></i>
+                <span>Pengaturan</span>
+            </button>
+            
+            <button class="btn btn-secondary" onclick="confirmExit()">
+                <i class="fa-solid fa-right-from-bracket icon"></i>
+                <span>Keluar</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="settingsScreen" class="overlay hidden">
+        <div class="menu-dialog">
+            <h2>PENGATURAN</h2>
+            <label class="setting-row">
+                <span>Suara</span>
+                <input id="soundToggle" type="checkbox" checked onchange="toggleSound(this.checked)">
+            </label>
+            <div class="control-list">
+                <strong>KONTROL</strong>
+                <span>W / D atau panah: bergerak</span>
+                <span>A / S: mundur</span>
+                <span>SPACE: lompat</span>
+                <span>SHIFT: sprint</span>
+                <span>J: serang</span>
+            </div>
+            <button class="dialog-button" onclick="closeSettings()">Kembali</button>
+        </div>
+    </div>
+
+    <div id="exitScreen" class="overlay hidden">
+        <div class="menu-dialog">
+            <h2>KELUAR DARI GAME?</h2>
+            <p>Progress permainan saat ini akan dihentikan.</p>
+            <div class="dialog-actions">
+                <button class="dialog-button" onclick="exitToMenu()">Ya, keluar</button>
+                <button class="dialog-button secondary-dialog-button" onclick="closeExitConfirm()">Batal</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="game">
+        <canvas id="canvas" width="1280" height="720"></canvas>
+    </div>
+
+    <div id="hud">
+        <div class="hudTop">
+            <div class="panel">❤️ NYAWA<div class="bar"><div id="hpFill" class="fill"></div></div></div>
+            <div class="panel">⚡ STAMINA<div class="bar"><div id="staminaFill" class="fill"></div></div></div>
+            <div class="panel">💎 Kristal: <span id="crystals">0</span></div>
+            <div class="panel">🗺️ Stage <span id="stage">1</span>/20</div>
+            <div class="panel stage-panel" aria-hidden="true"><span id="stageName">THE AWAKENING</span></div>
+        </div>
+    </div>
+
+    <div id="message"></div>
+    <div id="gameOver" class="overlay hidden">
+        <div class="card gameover-card">
+            <div class="gameover-badge">FAILED</div>
+            <h1>PERJALANAN TERHENTI</h1>
+            <p>Nyawamu habis, tapi tantangan belum berakhir. Coba lagi dari stage ini.</p>
+            <button onclick="restartGame()">ULANGI STAGE</button>
+        </div>
+    </div>
+    <div id="ending" class="overlay hidden">
+        <div class="card ending-card">
+            <div class="ending-badge">CLEAR</div>
+            <h1>RINTANGAN TERLEWATI</h1>
+            <p>Kamu berhasil menyelesaikan seluruh perjalanan dan menaklukkan semua level.</p>
+            <button onclick="location.reload()">MAIN LAGI</button>
+        </div>
+    </div>
+    <div id="quizOverlay" class="overlay hidden">
+        <div class="card quiz-card">
+            <div class="quiz-header">
+                <div id="quizProgress" class="quiz-progress"></div>
+                <div id="quizTimer" class="quiz-timer" aria-live="polite">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="quizTimeValue">15</span>s
+                </div>
+            </div>
+            <h2>GERBANG PENGETAHUAN</h2>
+            <p>Jawab pertanyaan untuk membuka stage berikutnya.</p>
+            <div id="quizQuestion"></div>
+            <div id="quizAnswers"></div>
+            <div id="quizFeedback"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
